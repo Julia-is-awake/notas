@@ -44,7 +44,7 @@ main{
 #modal-view{
     border:1px solid #1b85dc;
     position: absolute;
-    display:none;
+    display: none;
     width: 90vw;
     padding:10px;
 }
@@ -57,7 +57,7 @@ main{
     border:1px solid #1b85dc;
     position: absolute;
     padding:2vh 2vw;
-    display:none;
+    display: none;
     width: 90vw;
 }
   
