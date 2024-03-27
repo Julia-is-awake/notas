@@ -74,7 +74,7 @@ const deleteNote = (note) => {
     note.id = parseInt(note.id);
     notes.forEach((item, i) => {
         if(item.id == note.id){
-            notes.slice(i);
+            notes.splice(i, 1);
         }
     })
     notes = JSON.stringify(notes);
@@ -157,7 +157,7 @@ const showNote = (note) => {
     btnDelete.addEventListener("click", (evt) => {
         evt.preventDefault();
         if (confirm("Tem certeza que deseja deletar?") == true) {
-            deleteNote();
+            deleteNote(note);
             loadNotes();
             console.log("Você confirmou!");
         } else {
