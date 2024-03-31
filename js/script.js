@@ -26,10 +26,13 @@ btnCloseNote.addEventListener("click", (evt) => {
     notes.style.display="flex";
     modal.style.display="none";
     addNote.style.display='block';
+    document.querySelector('.texto-aviso').style.display = 'none';
 
     document.querySelector('#input-id').value = "";
     document.querySelector('#input-title').value = "";
     document.querySelector('#input-content').value = "";
+    console.log("fechou");
+    loadNotes();
     listNotes();
 });
 
@@ -79,14 +82,19 @@ const deleteNote = (note) => {
     })
     notes = JSON.stringify(notes);
     localStorage.setItem('notes', notes);
+    listNotes();
 }
 
 const loadNotes = () => {
     let notes = localStorage.getItem('notes');
-    if(!notes){
+    if(notes === null || (notes && JSON.parse(notes).length === 0)){
         notes = [];
-    }else{
+        console.log("NAO tem NOta");
+        document.querySelector('.texto-aviso').innerText = 'There are no notes yet :(';
+        document.querySelector('.texto-aviso').style.display = 'block';
+        } else {
         notes = JSON.parse(notes);
+        document.querySelector('.texto-aviso').innerText = '';
     }
     return notes;
 };
@@ -97,20 +105,20 @@ const listNotes = () => {
     notes.innerHTML = "";
     listNotes.forEach((item) => {
         const divCard = document.createElement('div');
-        divCard.className = 'card';
-        divCard.style.width = '18rem';
+        divCard.className = 'card item-cartao';
         const divCardBody = document.createElement('div');
-        divCardBody.className = 'card-body';
+        divCardBody.className = 'card-body cartaozin';
         const h1 = document.createElement('h1');
-        h1.className = 'card-title';
+        h1.className = 'card-title text-light';
         h1.innerText = item.title;
         const pContent = document.createElement('p');
-        pContent.className = 'card-text';
+        pContent.className = 'card-text text-light';
         pContent.innerText = item.content;
         //console.log(item);
         const pLastTime = document.createElement('p');
         let lastTime = new Date(item.lastTime).toLocaleDateString('pt-BR');
         pLastTime.innerText = `Last time: ${lastTime}`;
+        pLastTime.className = 'text-light';
 
 
         divCardBody.appendChild(h1);
@@ -129,14 +137,36 @@ const listNotes = () => {
             notes.style.display = 'flex';
             modalView.style.display = 'none';
             addNote.style.display = 'block';
+            document.querySelector('.texto-aviso').style.display = 'none';
+            loadNotes();
         });
     });
+};
+
+let currentNote = null;
+let deleteListenerAdded = false; // Pra checar se o eventlistener foi adicionado ou não
+
+// Define a função de alert pra deletar a nota
+const deleteNoteConfirm = (evt) => {
+    evt.preventDefault();
+    if (currentNote && confirm("Tem certeza que deseja deletar?")) {
+        deleteNote(currentNote);
+        console.log("Você confirmou!");
+        notes.style.display = 'flex';
+        modalView.style.display = 'none';
+        addNote.style.display = 'block';
+        loadNotes();
+        listNotes();
+    } else {
+        console.log("Você cancelou!");
+    }
 };
 
 const showNote = (note) => {
     notes.style.display = 'none';
     modalView.style.display = 'block';
     addNote.style.display = 'none';
+    currentNote = note;
 
     document.querySelector('#title-note').innerHTML = "<h1>"+note.title+"</h1>";
     document.querySelector('#content-note').innerHTML = "<p>"+note.content+"</p>";
@@ -152,18 +182,17 @@ const showNote = (note) => {
         document.querySelector('#input-id').value = note.id;
         document.querySelector('#input-title').value = note.title;
         document.querySelector('#input-content').value = note.content;
-    })
+    });
 
-    btnDelete.addEventListener("click", (evt) => {
-        evt.preventDefault();
-        if (confirm("Tem certeza que deseja deletar?") == true) {
-            deleteNote(note);
-            loadNotes();
-            console.log("Você confirmou!");
-        } else {
-            console.log("Você cancelou!");
-        }
-    })
-}
+    // Se tiver um event listener, ele vai ser deletado e daí depois adicionado de novo
+    if (deleteListenerAdded) {
+        btnDelete.removeEventListener("click", deleteNoteConfirm);
+    }
 
+    // Aqui o eventlistener é adicionado
+    btnDelete.addEventListener("click", deleteNoteConfirm);
+    deleteListenerAdded = true; // Depois que adicionou o eventlistener, seta a checagem pra verdadeiro
+};
+
+loadNotes();
 listNotes();

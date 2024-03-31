@@ -10,63 +10,68 @@
 </head>
 <body>
     <header>
-        <div id="logo"><img src="./images/bn.png" /></div>
+        <div id="logo" class="mt-1 mx-3">
+            <a href="">
+                <i class="bi bi-journals display-5 text-light"></i>
+            </a>
+        </div>
         <div id="display"></div>
         <div id="user"></div>
     </header>
     <msgs></msgs>
+    <h1 class="texto-aviso"></h1>
     <main>
         <div id="controls">
-            <div id="add-note">
+            <div id="add-note" class="mb-3">
                 <a href="" >
-                    <i class="bi bi-plus-square-fill" style="font-size: 2rem;"></i>
+                    <i class="bi bi-plus-square-fill text-warning" style="font-size: 2rem;"></i>
                 </a>
             </div>
         </div>
         <div id="notes"> </div>
 
-        <div id="modal-view">
+        <div id="modal-view" style="background-color: #0B1726;">
             <div id="close-modal">
                 <a href="" >
-                    <i class="bi bi-x-square" ></i>
+                    <i class="bi bi-x-square text-danger" ></i>
                 </a>
             </div>
-            <div id="title-note"> </div>
-            <div id="content-note"> </div>
-            <div id="controls-note">
+            <div id="title-note" class="text-light"> </div>
+            <div id="content-note" class="text-light"> </div>
+            <div id="controls-note" class="text-light">
                 <div id="deletar-nota">
                     <a href="">
-                        <i class="bi bi-trash-fill"></i>
+                        <i class="bi bi-trash-fill text-danger"></i>
                     </a>
                 </div>
                 <div id="editar-nota">
                     <a href="">
-                        <i class="bi bi-pencil-square"></i>
+                        <i class="bi bi-pencil-square text-light"></i>
                     </a>
                 </div>
             </div>
         </div>
 
         <div id="modal">
-            <div class="mb-3" style="border-bottom: 1px solid #999; display:flex; justify-content: space-between;">
+            <div class="mb-3" style="display:flex; justify-content: space-between;">
                 <div>
                     <a href="" id="btn-save-note">
-                        <i class="bi bi-save" ></i>
+                        <i class="bi bi-save text-light" ></i>
                     </a>
                 </div>
                 <div>
-                    <a href="" style="color:#999" id="btn-close-note">
-                        <i class="bi bi-x-square" ></i>
+                    <a href="" style="color:white" id="btn-close-note">
+                        <i class="bi bi-x-square text-danger" ></i>
                     </a>
                 </div>
             </div>
             <input type="hidden" id="input-id" >
             <div class="mb-3">
-                <label for="title" class="form-label">Title</label>
+                <label for="title" class="form-label text-light">Title</label>
                 <input type="text" class="form-control" id="input-title" placeholder="Title">
             </div>
             <div class="mb-3">
-                <label for="content" class="form-label">Notes</label>
+                <label for="content" class="form-label text-light">Notes</label>
                 <textarea class="form-control" id="input-content" rows="4"></textarea>
             </div>
         </div>
