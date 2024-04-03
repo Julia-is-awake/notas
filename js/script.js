@@ -117,7 +117,7 @@ const listNotes = () => {
         //console.log(item);
         const pLastTime = document.createElement('p');
         let lastTime = new Date(item.lastTime).toLocaleDateString('pt-BR');
-        pLastTime.innerText = `Last time: ${lastTime}`;
+        pLastTime.innerText = `Last uptade: ${lastTime}`;
         pLastTime.className = 'text-light';
 
 
@@ -170,7 +170,7 @@ const showNote = (note) => {
 
     document.querySelector('#title-note').innerHTML = "<h1>"+note.title+"</h1>";
     document.querySelector('#content-note').innerHTML = "<p>"+note.content+"</p>";
-    document.querySelector('#content-note').innerHTML += "<p>Ultima atualização: "+new Date(note.lastTime).toLocaleDateString('pt-BR')+"</p>";
+    document.querySelector('#content-note').innerHTML += "<p>Last update: "+new Date(note.lastTime).toLocaleDateString('pt-BR')+"</p>";
 
     btnEdit.addEventListener("click", (evt) => {
         evt.preventDefault();
