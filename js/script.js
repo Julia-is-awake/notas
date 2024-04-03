@@ -149,7 +149,7 @@ let deleteListenerAdded = false; // Pra checar se o eventlistener foi adicionado
 // Define a função de alert pra deletar a nota
 const deleteNoteConfirm = (evt) => {
     evt.preventDefault();
-    if (currentNote && confirm("Tem certeza que deseja deletar?")) {
+    if (currentNote && confirm("Are you sure you want to delete this note?")) {
         deleteNote(currentNote);
         console.log("Você confirmou!");
         notes.style.display = 'flex';
